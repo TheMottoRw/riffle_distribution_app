@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Armory</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="assign">Assigned</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="header">Armory &amp; Riffle distribution</string>
+    <string name="phone">Phone</string>
+    <string name="password">Password</string>
+    <string name="signin">Signin</string>
+    <string name="weaponassign">WEAPON DE/ASSIGNMENT</string>
+    <string name="policeid">Police ID</string>
+    <string name="serialnumber">Weapon serial number</string>
+    <string name="scanserial">Scan serial number</string>
+    <string name="declareweaponsubmission">Declare weapon submission</string>
+    <string name="deassignheader">Assign or Deassign weapon</string>
+    <string name="register">Register</string>
+    <string name="savingdata">Saving data</string>
+    <string name="logout">Logout</string>
+    <string name="loading">Loading...</string>
+    <string name="trylogin">Trying to login...</string>
+    <!--BArcode strings-->
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Ocr dependencies cannot be downloaded due to low device storage</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
+
+    <!--Barcode-->
+    <string name="title_activity_main">Barcode Reader Sample</string>
+    <string name="barcode_header">Click &quot;Read Barcode&quot; to read a barcode</string>
+    <string name="read_barcode">Read Barcode</string>
+    <string name="barcode_success">Barcode read successfully</string>
+    <string name="barcode_failure">No barcode captured</string>
+    <string name="barcode_error">"Error reading barcode: %1$s"</string>
+</resources>

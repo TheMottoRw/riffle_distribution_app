@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Assign">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="40dp">
+
+            <TextView
+                android:id="@+id/header"
+                style="@style/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/deassignheader" />
+
+            <TextView
+                style="@style/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/policeid" />
+
+            <EditText
+                android:id="@+id/edtPoliceId"
+                style="@style/inputtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/serialnumber" />
+
+            <EditText
+                android:id="@+id/edtSerial"
+                style="@style/inputtext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true" />
+
+            <Button
+                android:id="@+id/btnScanSerial"
+                style="@style/buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_credit_card_24"
+                android:paddingLeft="20dp"
+                android:text="@string/scanserial" />
+
+            <Button
+                android:id="@+id/btnRegister"
+                style="@style/buttons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_baseline_send_24"
+                android:paddingLeft="20dp"
+                android:text="@string/register" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnScanSubmit"
+            style="@style/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="@string/declareweaponsubmission"
+            android:background="#AB2196F3"/>
+    </RelativeLayout>
+</LinearLayout>

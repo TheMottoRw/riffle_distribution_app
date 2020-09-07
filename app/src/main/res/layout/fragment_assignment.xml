@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Assignment">
+<Button
+    android:id="@+id/btnAssignWeapon"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/weaponassign"
+    android:background="#AB2196F3"
+    android:layout_marginTop="0dp"
+    android:textColor="@color/white"/>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycerlview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="55dp"/>
+
+</FrameLayout>
