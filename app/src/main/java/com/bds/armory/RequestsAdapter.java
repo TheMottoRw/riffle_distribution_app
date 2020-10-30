@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.MyViewHolder> {
+public class RequestsAdapter extends RecyclerView.Adapter<RequestsAdapter.MyViewHolder> {
     public LinearLayout v;
     public Context ctx;
     public JSONObject readStatusSymbol = new JSONObject();
@@ -32,18 +34,18 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.MyVi
     public MyViewHolder vh;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public DashboardAdapter(Context context, JSONArray myDataset) {
+    public RequestsAdapter(Context context, JSONArray myDataset) {
         mDataset = myDataset;
         ctx = context;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public DashboardAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
-                                                             int viewType) {
+    public RequestsAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
+                                                            int viewType) {
         // create a new view
         v = (LinearLayout) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_dashboard, parent, false);
+                .inflate(R.layout.recycler_requests, parent, false);
         vh = new MyViewHolder(v);
         return vh;
     }
@@ -54,32 +56,17 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.MyVi
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
+
         try {
             final JSONObject currentObj = mDataset.getJSONObject(position);
-            JSONObject stats = currentObj.getJSONObject("stats");
-            final String date = currentObj.getString("date"),
-            returned = stats.getString("returned"),
-            notreturned = stats.getString("not_returned");
-            holder.tvDate.setText(date);
-            holder.tvReturnedNo.setText(returned);
-            holder.tvNotReturnedNo.setText(notreturned);
+            final String date = currentObj.getString("created_at"),
+                    name = currentObj.getString("name"),
+                    message = currentObj.getString("message");
+//            Toast.makeText(ctx,name+" - "+ message,Toast.LENGTH_LONG).show();
+            holder.tvName.setText(name);
+            holder.tvReason.setText(message);
+            holder.tvDate.setText(date.substring(0,16));
 
-            holder.tvNotReturnedNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(ctx,NonReturnedWeapon.class);
-                    intent.putExtra("workdate",date);
-                    ctx.startActivity(intent);
-                }
-            });
-            holder.tvReturnedNo.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(ctx,ReturnedWeapon.class);
-                    intent.putExtra("workdate",date);
-                    ctx.startActivity(intent);
-                }
-            });
         } catch (JSONException ex) {
 
         }
@@ -97,13 +84,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.MyVi
     // you provide access to all the views for a data item in a view holder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView tvDate, tvReturnedNo,tvNotReturnedNo;
+        public TextView tvReason,tvName,tvDate;
         public MyViewHolder(View view) {
             super(view);
+            tvName = view.findViewById(R.id.tvName);
+            tvReason = view.findViewById(R.id.tvMessage);
             tvDate = view.findViewById(R.id.tvDate);
-            tvReturnedNo = view.findViewById(R.id.tvReturnedNo);
-            tvNotReturnedNo = view.findViewById(R.id.tvNotReturnedNo);
-
 
             //tvMsg = lny.findViewById(R.id.tvRecyclerDate);
         }

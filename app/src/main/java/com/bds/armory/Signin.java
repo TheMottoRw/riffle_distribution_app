@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -26,19 +28,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Signin extends AppCompatActivity {
-    private EditText edtPhone,edtPassword;
-    private Button btnLogin;
+    private EditText edtPhone,edtPassword,edtHost;
+    private Button btnLogin,btnViewAllocation,btnSet;
     private Helper helper;
     private ProgressDialog pgdialog;
+    private ImageView imgLogo;
+    private LinearLayout lnyHost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_signin);
         helper = new Helper(getApplicationContext());
+        lnyHost = findViewById(R.id.lnyHost);
         edtPhone = findViewById(R.id.edtPhone);
+        edtHost = findViewById(R.id.edtHost);
         edtPassword = findViewById(R.id.edtPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        btnSet = findViewById(R.id.btnSet);
+        imgLogo = findViewById(R.id.imgLogo);
+        btnViewAllocation = findViewById(R.id.btnViewAllocation);
         pgdialog = new ProgressDialog(this);
         pgdialog.setMessage(getString(R.string.trylogin));
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -47,9 +56,38 @@ public class Signin extends AppCompatActivity {
                 login(edtPhone.getText().toString().trim(),edtPassword.getText().toString());
             }
         });
+        btnViewAllocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(Signin.this,SearchAllocation.class));
+            }
+        });
+        imgLogo.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                edtHost.setText(helper.host);
+                lnyHost.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+        edtHost.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                helper.setHost(edtHost.getText().toString().trim());
+                lnyHost.setVerticalGravity(View.GONE);
+                return true;
+            }
+        });
+        btnSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                helper.setHost(edtHost.getText().toString().trim());
+                lnyHost.setVisibility(View.GONE);
+            }
+        });
     }
     public void login(final String phone,final String password) {
-        final String url = Helper.host+"/users.php";
+        final String url = helper.host+"/users.php";
         pgdialog.show();
 //        tvLoggingIn.setVisibility(View.VISIBLE);
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
@@ -66,11 +104,16 @@ public class Signin extends AppCompatActivity {
                             if(object.getString("status").equals("ok")) {
                                 JSONObject obj = object.getJSONObject("user");
                                 if(obj.has("sess_category")) {
-                                    if (obj.getString("sess_category").equals("Deployer")) {
+                                    if (obj.getString("sess_category").equals("Riffle_distributor")) {
                                         helper.setSession(obj.getString("sess_id"), obj.getString("sess_category"), obj.getString("sess_district"));
 //                                tvLoggingIn.setVisibility(View.GONE);
                                         helper.showToast("Login success");
                                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    } else if (obj.getString("sess_category").equals("Police")) {
+                                        helper.setSession(obj.getString("sess_id"), obj.getString("sess_category"), obj.getString("sess_district"));
+//                                tvLoggingIn.setVisibility(View.GONE);
+                                        helper.showToast("Login success");
+                                        startActivity(new Intent(getApplicationContext(), PoliceAllocation.class));
                                     } else helper.showToast("Wrong username or password");
                                 } else helper.showToast("Access denied");
                             } else  helper.showToast("Wrong username or password");

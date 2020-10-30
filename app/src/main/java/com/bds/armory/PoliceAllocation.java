@@ -13,12 +13,12 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class PoliceAllocation extends AppCompatActivity {
     public Helper helper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_police_allocation);
         helper = new Helper(getApplicationContext());
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
@@ -35,12 +35,10 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
             Fragment selectedFragment = null;
             switch (menuItem.getItemId()){
-                case R.id.dashboard:
-                    selectedFragment = new Dashboard();break;
                 case R.id.assignment:
-                    selectedFragment = new Assignment();break;
-//                case R.id.requests:
-//                    selectedFragment = new Requests();break;
+                    selectedFragment = new PoliceAssigned();break;
+                case R.id.requests:
+                    selectedFragment = new PoliceRequests();break;
             }
             FragmentManager fm = getSupportFragmentManager();
             FragmentTransaction ft= fm.beginTransaction();
@@ -49,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     void setUpDefaultFragment(){
-        Fragment selectedFragment = new Dashboard();
+        Fragment selectedFragment = new PoliceAssigned();
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft= fm.beginTransaction();
         ft.replace(R.id.frame_container,selectedFragment).commit();

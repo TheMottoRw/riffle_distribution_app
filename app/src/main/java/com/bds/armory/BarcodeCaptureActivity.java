@@ -366,7 +366,7 @@ public final class BarcodeCaptureActivity extends AppCompatActivity implements B
         }
 
         if (best != null) {
-            Toast.makeText(getApplicationContext(),"Best res "+best.rawValue, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),"Best res "+best.rawValue, Toast.LENGTH_SHORT).show();
             Intent data = new Intent();
             data.putExtra(BarcodeObject, best.rawValue);
 //            Toast.makeText(getApplicationContext(),"Result "+best,Toast.LENGTH_SHORT).show();

@@ -56,22 +56,32 @@ public class AssignmentAdapter extends RecyclerView.Adapter<AssignmentAdapter.My
         // - replace the contents of the view with that element
         try {
             final JSONObject currentObj = mDataset.getJSONObject(position);
-            String returnedOn = currentObj.getString("returned_on"),
+            final String id = currentObj.getString("id"),
+                    returned = currentObj.getString("returned_on"),
                     assignedOn = currentObj.getString("assigned_on").substring(0,10),
                     workdate = currentObj.getString("work_date").substring(0,10),
-                    serial = currentObj.getString("weapon_serial_number");
-            returnedOn = returnedOn.equals("null")?"-":returnedOn;
+                    serial = currentObj.getString("weapon_serial_number"),
+                    police = currentObj.getString("police_name"),
+                    reason = currentObj.getString("reason");
+            final String finalId = id;
+            final String returnedOn = returned.equals("null")?(!reason.equals("")?reason:"-"):returned;
             holder.tvPolice.setText(currentObj.getString("police_name"));
             holder.tvPost.setText(currentObj.getString("post_name"));
             holder.tvWeapon.setText(serial.equals("null")?"None":serial);
             holder.tvWorkdate.setText(workdate);
             holder.tvAssigned.setText(assignedOn);
             holder.tvReturned.setText(returnedOn);
+
             //loading image attached to text
-           holder.btnAssign.setOnClickListener(new View.OnClickListener() {
+           holder.tvWorkdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("tag","Scan QR Code");
+                    if(returnedOn.equals("-")) {
+                        Intent intent = new Intent(ctx, DeclareWeaponSubmitDelay.class);
+                        intent.putExtra("id", finalId);
+                        intent.putExtra("police", police);
+                        ctx.startActivity(intent);
+                    }
                 }
             });
 

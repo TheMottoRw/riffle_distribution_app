@@ -62,7 +62,7 @@ public class Assignment extends Fragment {
         return view;
     }
     public void loadData() {
-        final String url = Helper.host + "/assignment.php?cate=bydeployer&deployer="+helper.getDataValue("sess_id");
+        final String url = helper.host + "/assignment.php?cate=bydeployer&deployer="+helper.getDataValue("sess_id");
         RequestQueue queue = Volley.newRequestQueue(ctx);
 // prepare the Request
         StringRequest getRequest = new StringRequest(Request.Method.GET, url,

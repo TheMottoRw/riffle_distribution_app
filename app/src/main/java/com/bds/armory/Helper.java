@@ -2,6 +2,7 @@ package com.bds.armory;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
@@ -9,11 +10,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Helper {
+    public String host = "";
     public Context ctx;
     public Helper(Context context){
         ctx = context;
+        host = getHost();
     }
-    public static String host = "http://192.168.43.161/RUT/Methode/armory/api/requests";
+//    public static String host = "https://www.mbwira.rw/Methode/armory/api/requests";
     public boolean isNetworkConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) ctx
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -25,10 +28,15 @@ public class Helper {
         else tv.setVisibility(View.VISIBLE);
         tv.refreshDrawableState();
     }
-    public String getHost(String place){
+    public void setHost(String host){
+        SharedPreferences.Editor sh = this.getEditor().edit();
+        sh.putString("host",host);
+        sh.apply();
+    }
+    public String getHost(){
         String local = "http://192.168.43.161/RUT/Methode/api/requests",
                 remote = "http://192.168.1.8/RUT/Methode/api/requests";
-        return place.equals("local")?local:remote;
+        return getEditor().getString("host","http://192.168.1.14/RUT/Methode/armory/api/requests");
     }
 
     public void showToast(String message){

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SendRequests"
+    android:orientation="vertical"
+    android:padding="40dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Send your requests"
+        style="@style/label"/>
+    <TextView
+        android:id="@+id/tvUserId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="name"
+        style="@style/label"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tvReason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Request"
+        style="@style/label"/>
+    <EditText
+        android:id="@+id/edtRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/inputtext"
+        android:lines="10"/>
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/ic_baseline_send_24"
+        android:text="SEND"
+        style="@style/buttons"
+        android:paddingLeft="30dp"/>
+</LinearLayout>

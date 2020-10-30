@@ -50,7 +50,7 @@ public class Assign extends AppCompatActivity {
         btnScanSubmit = findViewById(R.id.btnScanSubmit);
         btnRegister = findViewById(R.id.btnRegister);
         helper = new Helper(Assign.this);
-        pgdialog = new ProgressDialog(getApplicationContext());
+        pgdialog = new ProgressDialog(this);
         pgdialog.setMessage(getString(R.string.savingdata));
 
         btnScanSerial.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +75,8 @@ public class Assign extends AppCompatActivity {
         edtPolice.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-                declareWeaponReturn();
+                Intent intent = new Intent(Assign.this,SearchPolice.class);
+                startActivityForResult(intent,3);
                 return true;
             }
         });
@@ -83,7 +84,7 @@ public class Assign extends AppCompatActivity {
 
     public void declareWeaponReturn() {
         pgdialog.show();
-        final String url = Helper.host + "/assignment.php";
+        final String url = helper.host + "/assignment.php";
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 // prepare the Request
         StringRequest getRequest = new StringRequest(Request.Method.POST, url,
@@ -135,7 +136,7 @@ public class Assign extends AppCompatActivity {
 
     public void assignWeapon() {
         pgdialog.show();
-        final String url = Helper.host + "/assignment.php";
+        final String url = helper.host + "/assignment.php";
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
 // prepare the Request
         StringRequest getRequest = new StringRequest(Request.Method.POST, url,
@@ -194,7 +195,7 @@ public class Assign extends AppCompatActivity {
                 if (resultCode == CommonStatusCodes.SUCCESS) {
                     String card = obj.getStringExtra("Barcode");
                     edtSerial.setText(card);
-                    assignWeapon();
+//                    assignWeapon();
                 }
             } else if (requestCode == 2) {
                 if (resultCode == CommonStatusCodes.SUCCESS) {
@@ -202,6 +203,13 @@ public class Assign extends AppCompatActivity {
                     String text = intent.getStringExtra("Barcode");
                     edtSerial.setText(text);
                     declareWeaponReturn();
+                    //submit caode
+                }
+            } else if (requestCode == 3) {
+                if (resultCode == RESULT_OK) {
+                    Intent intent = obj;
+                    String text = intent.getStringExtra("police");
+                    edtPolice.setText(text);
                     //submit caode
                 }
             }
